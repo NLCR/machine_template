@@ -1,22 +1,6 @@
 ---
-- hosts:
+- name: Firewalling machines
+  hosts:
   - all
-
-  tasks:
-  - name: Firewalld is running thru restarts
-    service: 
-      name: firewalld
-      enabled: yes
-      state: started
-
-  - name: Firewall accepts HTTPS (443)
-    firewalld:
-      service: https
-      state: enabled
-      permanent: yes
-
-  - name: Firewall accepts HTTP (80)
-    firewalld:
-      service: http
-      state: enabled
-      permanent: yes
+  roles:
+  - { role: NLCR.firewall, open_service: [ http, https ], open_port: [ 8080/tcp ] }
